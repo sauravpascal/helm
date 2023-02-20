@@ -1,0 +1,90 @@
+name: manage-azure-policy-b6d02209
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'policies/Function_apps_should_not_have_CORS_configured_to_allow_every_resource_to_access_your_apps_0820b7b9-23aa-4725-a1ce-ae4558f718e5/**'
+#      - 'policies/Configure_Function_app_slots_to_only_be_accessible_over_HTTPS_08cf2974-d178-48a0-b26d-f6b8e555748b/**'
+#      - 'policies/Function_apps_should_use_managed_identity_0da106f2-4ca3-48e8-bc85-c638fe6aea8f/**'
+#      - 'policies/Function_apps_should_have_remote_debugging_turned_off_0e60b895-3786-45da-8377-9c6b4b6ac5f9/**'
+#      - 'policies/Function_app_slots_should_disable_public_network_access_11c82d0c-db9f-4d7b-97c5-f3f9aa957da2/**'
+#      - 'policies/Function_app_slots_should_use_an_Azure_file_share_for_its_content_directory_13bcff5d-f0eb-4ce7-913e-83ad6300376b/**'
+#      - 'policies/Configure_Function_apps_to_use_the_latest_TLS_version_1f01f1c7-539c-49b5-9ef4-d4ffa37d22e0/**'
+#      - 'policies/Configure_Function_app_slots_to_disable_public_network_access_242222f3-4985-4e99-b5ef-086d6a6cb01c/**'
+#      - 'policies/Configure_Function_apps_to_turn_off_remote_debugging_25a5046c-c423-4805-9235-e844ae9ef49b/**'
+#      - 'policies/Function_apps_should_require_FTPS_only_399b2637-a50f-4f95-96f8-3a145476eb15/**'
+#      - 'policies/Function_apps_should_use_an_Azure_file_share_for_its_content_directory_4d0bc837-6eff-477e-9ecd-33bf8d4212a5/**'
+#      - 'policies/Function_app_slots_should_only_be_accessible_over_HTTPS_5e5dbe3f-2702-4ffc-8b1e-0cae008a5c71/**'
+#      - 'policies/Function_apps_should_only_be_accessible_over_HTTPS_6d555dd1-86f2-4f1c-8ed7-5abae7c6cbab/**'
+#      - 'policies/Configure_Function_app_slots_to_turn_off_remote_debugging_70adbb40-e092-42d5-a6f8-71c540a5efdb/**'
+#      - 'policies/Function_apps_that_use_Python_should_use_the_latest_Python_version_7238174a-fd10-4ef0-817e-fc820a951d73/**'
+#      - 'policies/Function_app_slots_should_have_remote_debugging_turned_off_89691ef9-8c50-49a8-8950-9c7fba41699e/**'
+#      - 'policies/Function_apps_should_disable_public_network_access_969ac98b-88a8-449f-883c-2e9adb123127/**'
+#      - 'policies/Function_apps_that_use_Java_should_use_the_latest_Java_version_9d0b6ea4-93e2-4578-bf2f-6bb17d22b4bc/**'
+#      - 'policies/Configure_Function_apps_to_only_be_accessible_over_HTTPS_a096cbd0-4693-432f-9374-682f485f23f3/**'
+#      - 'policies/Function_app_slots_should_not_have_CORS_configured_to_allow_every_resource_to_access_your_apps_a1a22235-dd10-4062-bd55-7d62778f41b0/**'
+#      - 'policies/Function_apps_should_have_authentication_enabled_c75248c1-ea1d-4a9c-8fc9-29a6aabd5da8/**'
+#      - 'policies/Configure_Function_apps_to_disable_public_network_access_cd794351-e536-40f4-9750-503a463d8cad/**'
+#      - 'policies/Function_app_slots_should_have_Client_Certificates_(Incoming_client_certificates)_enabled_cf9ca02d-383e-4506-a421-258cc1a5300d/**'
+#      - 'policies/Function_app_slots_should_use_the_latest_TLS_version_deb528de-8f89-4101-881c-595899253102/**'
+#      - 'policies/Function_app_slots_should_require_FTPS_only_e1a09430-221d-4d4c-a337-1edb5a1fa9bb/**'
+#      - 'policies/Function_apps_should_use_latest_HTTP_Version_e2c1c086-2d84-4019-bff3-c44ccd95113c/**'
+#      - 'policies/Function_apps_should_have_Client_Certificates_(Incoming_client_certificates)_enabled_eaebaea7-8013-4ceb-9d14-7eb32271373c/**'
+#      - 'policies/Function_apps_should_use_the_latest_TLS_version_f9d614c5-c173-4d56-95a7-b4437057d193/**'
+#      - 'policies/Configure_Function_app_slots_to_use_the_latest_TLS_version_fa3a6357-c6d6-4120-8429-855577ec0063/**'
+#      - 'policies/Function_app_slots_should_use_latest_HTTP_Version_fa98f1b1-1f56-4179-9faf-93ad82f3458f/**'
+#      - .github/workflows/manage-azure-policy-b6d02209.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_b6d02209}}
+        allow-no-subscriptions: true
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          policies/Function_apps_should_not_have_CORS_configured_to_allow_every_resource_to_access_your_apps_0820b7b9-23aa-4725-a1ce-ae4558f718e5/**
+          policies/Configure_Function_app_slots_to_only_be_accessible_over_HTTPS_08cf2974-d178-48a0-b26d-f6b8e555748b/**
+          policies/Function_apps_should_use_managed_identity_0da106f2-4ca3-48e8-bc85-c638fe6aea8f/**
+          policies/Function_apps_should_have_remote_debugging_turned_off_0e60b895-3786-45da-8377-9c6b4b6ac5f9/**
+          policies/Function_app_slots_should_disable_public_network_access_11c82d0c-db9f-4d7b-97c5-f3f9aa957da2/**
+          policies/Function_app_slots_should_use_an_Azure_file_share_for_its_content_directory_13bcff5d-f0eb-4ce7-913e-83ad6300376b/**
+          policies/Configure_Function_apps_to_use_the_latest_TLS_version_1f01f1c7-539c-49b5-9ef4-d4ffa37d22e0/**
+          policies/Configure_Function_app_slots_to_disable_public_network_access_242222f3-4985-4e99-b5ef-086d6a6cb01c/**
+          policies/Configure_Function_apps_to_turn_off_remote_debugging_25a5046c-c423-4805-9235-e844ae9ef49b/**
+          policies/Function_apps_should_require_FTPS_only_399b2637-a50f-4f95-96f8-3a145476eb15/**
+          policies/Function_apps_should_use_an_Azure_file_share_for_its_content_directory_4d0bc837-6eff-477e-9ecd-33bf8d4212a5/**
+          policies/Function_app_slots_should_only_be_accessible_over_HTTPS_5e5dbe3f-2702-4ffc-8b1e-0cae008a5c71/**
+          policies/Function_apps_should_only_be_accessible_over_HTTPS_6d555dd1-86f2-4f1c-8ed7-5abae7c6cbab/**
+          policies/Configure_Function_app_slots_to_turn_off_remote_debugging_70adbb40-e092-42d5-a6f8-71c540a5efdb/**
+          policies/Function_apps_that_use_Python_should_use_the_latest_Python_version_7238174a-fd10-4ef0-817e-fc820a951d73/**
+          policies/Function_app_slots_should_have_remote_debugging_turned_off_89691ef9-8c50-49a8-8950-9c7fba41699e/**
+          policies/Function_apps_should_disable_public_network_access_969ac98b-88a8-449f-883c-2e9adb123127/**
+          policies/Function_apps_that_use_Java_should_use_the_latest_Java_version_9d0b6ea4-93e2-4578-bf2f-6bb17d22b4bc/**
+          policies/Configure_Function_apps_to_only_be_accessible_over_HTTPS_a096cbd0-4693-432f-9374-682f485f23f3/**
+          policies/Function_app_slots_should_not_have_CORS_configured_to_allow_every_resource_to_access_your_apps_a1a22235-dd10-4062-bd55-7d62778f41b0/**
+          policies/Function_apps_should_have_authentication_enabled_c75248c1-ea1d-4a9c-8fc9-29a6aabd5da8/**
+          policies/Configure_Function_apps_to_disable_public_network_access_cd794351-e536-40f4-9750-503a463d8cad/**
+          policies/Function_app_slots_should_have_Client_Certificates_(Incoming_client_certificates)_enabled_cf9ca02d-383e-4506-a421-258cc1a5300d/**
+          policies/Function_app_slots_should_use_the_latest_TLS_version_deb528de-8f89-4101-881c-595899253102/**
+          policies/Function_app_slots_should_require_FTPS_only_e1a09430-221d-4d4c-a337-1edb5a1fa9bb/**
+          policies/Function_apps_should_use_latest_HTTP_Version_e2c1c086-2d84-4019-bff3-c44ccd95113c/**
+          policies/Function_apps_should_have_Client_Certificates_(Incoming_client_certificates)_enabled_eaebaea7-8013-4ceb-9d14-7eb32271373c/**
+          policies/Function_apps_should_use_the_latest_TLS_version_f9d614c5-c173-4d56-95a7-b4437057d193/**
+          policies/Configure_Function_app_slots_to_use_the_latest_TLS_version_fa3a6357-c6d6-4120-8429-855577ec0063/**
+          policies/Function_app_slots_should_use_latest_HTTP_Version_fa98f1b1-1f56-4179-9faf-93ad82f3458f/**
